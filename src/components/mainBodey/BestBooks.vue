@@ -1,87 +1,89 @@
 <template>
-  <a-carousel arrows>
-    <template #prevArrow>
-      <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
-        <left-circle-outlined />
+  <div>
+    <h1 class="title">{{ books.title }}</h1>
+    <a-carousel arrows :slidesToShow="4" style="width: 65rem">
+      <template #prevArrow>
+        <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
+          <left-circle-outlined />
+        </div>
+      </template>
+      <template #nextArrow>
+        <div class="custom-slick-arrow" style="right: 10px">
+          <right-circle-outlined />
+        </div>
+      </template>
+
+      <div class="book-card" v-for="(item, index) in books.url" :key="index">
+        <a-card hoverable style="width: 240px; height: 13rem">
+          <template #cover>
+            <img :alt="item" :src="`src/assets/img/${item}`" class="pic-carousel" />
+          </template>
+        </a-card>
       </div>
-    </template>
-    <template #nextArrow>
-      <div class="custom-slick-arrow" style="right: 10px">
-        <right-circle-outlined />
-      </div>
-    </template>
-    <!-- ----- -->
-    <a-card hoverable style="width: 240px">
-      <template #cover>
-        <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
-      </template>
-      <a-card-meta :title="title">
-        <template #description>{{ description }}</template>
-      </a-card-meta>
-    </a-card>
-    <a-card hoverable style="width: 240px">
-      <template #cover>
-        <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
-      </template>
-      <a-card-meta :title="title">
-        <template #description>{{ description }}</template>
-      </a-card-meta>
-    </a-card>
-    <a-card hoverable style="width: 240px">
-      <template #cover>
-        <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
-      </template>
-      <a-card-meta :title="title">
-        <template #description>{{ description }}</template>
-      </a-card-meta>
-    </a-card>
-    <!-- ------ -->
-  </a-carousel>
+    </a-carousel>
+  </div>
 </template>
 <script lang="ts" setup>
-import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons-vue'
-
-interface DataBook {
-  title: string
-  description: string
-  price?: number
+import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons-vue";
+import { defineProps } from 'vue';
+interface Props {
+  books: {};
 }
-
-const {title, description}=defineProps<DataBook>()
-
-
+const { books } = defineProps<Props>();
 </script>
-
 <style scoped>
 /* For demo */
 :deep(.slick-slide) {
   text-align: center;
-  height: 160px;
   line-height: 160px;
-  background: #364d79;
+  /* background: #dcfce7; */
   overflow: hidden;
+  height: 13rem;
 }
 
 :deep(.slick-arrow.custom-slick-arrow) {
   width: 25px;
   height: 25px;
   font-size: 25px;
-  color: #fff;
-  background-color: rgba(31, 45, 61, 0.11);
+  color: #528570;
   transition: ease all 0.3s;
-  opacity: 0.3;
+  opacity: 1;
   z-index: 1;
 }
+
 :deep(.slick-arrow.custom-slick-arrow:before) {
   display: none;
 }
+
 :deep(.slick-arrow.custom-slick-arrow:hover) {
-  color: #fff;
-  opacity: 0.5;
+  color: #000000;
+  opacity: 1;
+  font-size: 35px;
 }
 
 :deep(.slick-slide h3) {
   color: #fff;
 }
+:deep(.slick-prev) {
+  margin-left: -68px;;
+}
+
+:deep(.ant-card-hoverable) {
+  border: none !important;
+}
+
+:deep(.ant-card-hoverable:hover) {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.title {
+  margin: 20px 0px;
+}
+
+.pic-carousel {
+  width: 80%;
+  height: 13rem;
+  border-radius: 5px !important;
+}
 </style>
-  

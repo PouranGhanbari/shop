@@ -1,10 +1,7 @@
 <template>
-  <a-card hoverable style="width: 300px">
+  <a-card hoverable style="width:13rem">
     <template #cover>
-      <img
-        alt="example"
-        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-      />
+      <img alt="example" src="@/assets/img/book.jpg" />
     </template>
     <!-- --- -->
     <template #actions>
@@ -23,17 +20,37 @@
     </a-card-meta>
   </a-card>
 </template>
-  <script lang="ts" setup>
-import { ShoppingCartOutlined, EllipsisOutlined, StarOutlined } from '@ant-design/icons-vue'
+<script lang="ts" setup>
+import { defineProps } from 'vue';
+import {
+  ShoppingCartOutlined,
+  EllipsisOutlined,
+  StarOutlined,
+} from "@ant-design/icons-vue";
 
 interface DataBook {
-  title: string
-  description: string
-  price?: number
+  title: string;
+  description: string;
+  price?: number;
 }
 
-const {title, description}=defineProps<DataBook>()
+const { title, description } = defineProps<DataBook>();
 </script>
 
 
-  
+<style scoped>
+:deep(.ant-card-cover) {
+  padding: 20px;
+}
+
+:deep(.ant-card-body) {
+  padding: 0px 20px;
+}
+
+:deep(.ant-card-meta-description) {
+  padding-bottom: 10px;
+}
+
+:deep(.ant-card-actions li) {
+margin: 5px 0px;}
+</style>

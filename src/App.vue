@@ -1,6 +1,6 @@
 
 <template>
-  <div class="main-page p-8">
+  <div class="main-page">
     <Header />
     <nav>
       <router-link to="/">Home</router-link> |
@@ -26,7 +26,7 @@ import Footer from './components/footer/footer.vue';
 
 <style >
 
-/* .main-page{
-  
-} */
+.main-page{
+  /* background-color: #eee; */
+}
 </style>

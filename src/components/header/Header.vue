@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="header flex">
-      <div class="icons flex flex-row">
+    <div class="header ">
+      <div class="icons flex justify-between  flex-row">
         <!-- <a @click="openNotification" class="icon-account ics text-lg">
           <img src="@/assets/img/pic-account.jpg" alt="pic-account" />
         </a> -->
@@ -33,7 +33,7 @@
             placeholder="Enter name's bood"
             enter-button
             @search="onSearch"
-            class="w-96"
+            class="w-[35rem]"
           />
         </a-space>
       </div>
@@ -76,13 +76,15 @@ const onSearch = (searchValue: string) => {
 
 <style>
 .header {
-  justify-content: space-between;
+  width: 95%;
+  margin: auto;
+display: flex;
+align-items: center;
+justify-content: space-between;
   flex-direction: row-reverse;
 }
 .icons {
-  /* width: 10%; */
   flex-direction: row-reverse;
-  justify-content: space-between;
 }
 .icon-account {
   width: 2rem;
