@@ -4,55 +4,84 @@
       <MenuDashboard />
     </div>
     <div class="doshboard-item1">
-     
-      <div class="Discount"> <Discount /></div>
+      <div class="Discount"><Discount /></div>
       <BuyReport />
-      <ListBookBuy :listBook="items" />
+      <Wallet />
+      <BasicTable :items="items" :headers="headers" />
+      {{ console.log(check) }}
     </div>
-
-
   </div>
 </template>
 
 <script lang="ts" setup>
-import Discount from './sections/Discount.vue';
-import MenuDashboard from './sections/MenuDashboard.vue';
-import BuyReport from './sections/BuyReport.vue';
-import ListBookBuy from './sections/ListBookBuy.vue';
-
+import Discount from "./sections/Discount.vue";
+import MenuDashboard from "./sections/MenuDashboard.vue";
+import BuyReport from "./sections/BuyReport.vue";
+import BasicTable from "@/components/mainBodey/BasicTable.vue";
+import Wallet from "./sections/Wallet.vue";
+import { computed } from "vue";
 
 const items = [
   {
     id: 1,
-    title: 'book name',
-    price: 37387,
-    url: 'pic-account.jpg',
+    title: "book name",
+    price: 3,
+    url: "pic-account.jpg",
     count: 2,
-    address: 'esfahan-bahonar'
+    address: "esfahan-bahonar",
+    total: 0,
   },
   {
     id: 2,
-    title: 'book name ',
-    price: 37387,
-    url: 'pic-account.jpg',
+    title: "book name ",
+    price: 3,
+    url: "pic-account.jpg",
     count: 5,
-    address: 'esfahan-bahonar'
+    address: "esfahan-bahonar",
+    total: 0,
   },
   {
     id: 3,
-    title: 'book name',
-    price: 37387,
-    url: 'pic-account.jpg',
+    title: "book name",
+    price: 3,
+    url: "pic-account.jpg",
     count: 1,
-    address: 'esfahan-bahonar'
+    address: "esfahan-bahonar",
+    total: 0,
   },
   {
     id: 4,
-    title: 'book name',
-    price: 37387,
-    url: 'pic-account.jpg',
+    title: "book name",
+    price: 3,
+    url: "pic-account.jpg",
     count: 1,
-    address: 'esfahan-bahonar'
+    address: "esfahan-bahonar",
+    total: 0,
+  },
+];
+
+
+(function calculateTotals (){
+  items.forEach((item) => {
+    item.total = item.price * item.count;
+  })
+})();
+
+const headers = [
+  {
+    key: "title",
+  },
+  {
+    key: "price",
+  },
+  {
+    key: "count",
+  },
+  {
+    key: "address",
+  },
+  {
+    key: "total",
   },
 ];
 </script>
@@ -73,22 +102,21 @@ const items = [
   flex-wrap: wrap;
   padding: 0px 35px;
   border-left: 1px solid #e9e9e9;
-  margin-bottom: 30px ;}
+  margin-bottom: 30px;
+}
 
-.Discount{
+.Discount {
   margin-right: 30px;
 }
-.menu{
+.menu {
   display: flex;
 }
-@media screen and ( max-width:1024px) {
- 
+@media screen and (max-width: 1024px) {
 }
 
-@media screen and ( max-width:768px) {
-.menu{
-  display: none;
-}
-
+@media screen and (max-width: 768px) {
+  .menu {
+    display: none;
+  }
 }
 </style>

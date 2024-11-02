@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title">{{ books.title }}</h1>
-    <a-carousel arrows :slidesToShow="4" style="width: 65rem">
+    <a-carousel arrows :slidesToShow="4" class="carousel-m">
       <template #prevArrow>
         <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
           <left-circle-outlined />
@@ -36,7 +36,6 @@ const { books } = defineProps<Props>();
 :deep(.slick-slide) {
   text-align: center;
   line-height: 160px;
-  /* background: #dcfce7; */
   overflow: hidden;
   height: 13rem;
 }
@@ -86,4 +85,19 @@ const { books } = defineProps<Props>();
   height: 13rem;
   border-radius: 5px !important;
 }
+.carousel-m{
+  width: 65rem;
+ }
+@media screen and ( max-width:1360px) {
+ .carousel-m{
+  width: 55rem;
+ }
+}
+
+@media screen and ( max-width:720px) {
+ .carousel-m{
+  display:none;
+ }
+}
+
 </style>

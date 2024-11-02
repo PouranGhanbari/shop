@@ -33,10 +33,10 @@
     </div>
 
     <div class="contact-us flex gap-2">
-      <TwitterOutlined class="text-2xl " />
-      <LinkedinOutlined class="text-2xl " />
-      <GoogleOutlined class="text-2xl " />
-      <InstagramOutlined class="text-2xl " />
+      <TwitterOutlined class="text-2xl" />
+      <LinkedinOutlined class="text-2xl" />
+      <GoogleOutlined class="text-2xl" />
+      <InstagramOutlined class="text-2xl" />
     </div>
   </div>
 </template>
@@ -60,7 +60,9 @@ const policies = [
 <style>
 .footer {
   background-color: #dcfce7;
-
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .bookstore-description {
   width: 35%;

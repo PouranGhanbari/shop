@@ -21,15 +21,23 @@
             </div>
           </div>
           <!-- ----- -->
-          <div class="cart-items ">
-            <ItemBooks v-for="(item, index) in dataBooks" :title="dataBooks[index].title"
-              :description="dataBooks[index].description" :key="index" class="items-cart" />
+          <div class="cart-items">
+            <ItemBooks
+              v-for="(item, index) in dataBooks"
+              :title="dataBooks[index].title"
+              :description="dataBooks[index].description"
+              :key="index"
+              class="items-cart"
+            />
           </div>
           <!-- ---- -->
-          <BestBooks :books="bestBook" />
-          <BestBooks :books="giftBook" />
+          <div class="best-books">
+            <BestBooks :books="bestBook" />
+            <BestBooks :books="giftBook" />
+          </div>
+
           <!-- ---- -->
-          <TopWriters :data="data" />
+          <BasicTable :items="items" :headers="headers" />
         </div>
       </div>
     </div>
@@ -38,7 +46,7 @@
 
 <script lang="ts" setup>
 import ItemBooks from "@/components/mainBodey/ItemBooks.vue";
-import TopWriters from "@/components/mainBodey/TopWriters.vue";
+import BasicTable from "@/components/mainBodey/BasicTable.vue";
 import BestBooks from "@/components/mainBodey/BestBooks.vue";
 import MenuFilter from "@/components/Menu/MenuFilter.vue";
 // import test from "@/views/test.vue";
@@ -54,7 +62,6 @@ const dataBooks = [
   { title: "book four", description: "this is a book", price: 52 },
   { title: "book four", description: "this is a book", price: 52 },
 ];
-
 
 const giftBook = {
   title: "gift book",
@@ -94,61 +101,73 @@ const bestBook = {
   ],
 };
 
-const data = [
+const items = [
   {
     key: "1",
     name: "John Brown",
-    Awards: "Nobel Prize in Literature",
-    BestSellingWork: "book",
+    awards: "Nobel Prize in Literature",
+    bestSellingWork: "book",
   },
   {
     key: "2",
     name: "Joe Black",
-    Awards: "Nobel Prize in Literature",
-    BestSellingWork: "book",
+    awards: "Nobel Prize in Literature",
+    bestSellingWork: "book",
   },
   {
     key: "3",
     name: "Jim Green",
-    Awards: "Nobel Prize in Literature",
-    BestSellingWork: "book",
+    awards: "Nobel Prize in Literature",
+    bestSellingWork: "book",
   },
   {
     key: "4",
     name: "Jim Red",
-    Awards: "Nobel Prize in Literature",
-    BestSellingWork: "book",
+    awards: "Nobel Prize in Literature",
+    bestSellingWork: "book",
   },
   {
     key: "1",
     name: "John Brown",
-    Awards: "Nobel Prize in Literature",
-    BestSellingWork: "book",
+    awards: "Nobel Prize in Literature",
+    bestSellingWork: "book",
   },
   {
     key: "2",
     name: "Joe Black",
-    Awards: "Nobel Prize in Literature",
-    BestSellingWork: "book",
+    awards: "Nobel Prize in Literature",
+    bestSellingWork: "book",
   },
   {
     key: "3",
     name: "Jim Green",
-    Awards: "Nobel Prize in Literature",
-    BestSellingWork: "book",
+    awards: "Nobel Prize in Literature",
+    bestSellingWork: "book",
   },
   {
     key: "4",
     name: "Jim Red",
-    Awards: "Nobel Prize in Literature",
-    BestSellingWork: "book",
+    awards: "Nobel Prize in Literature",
+    bestSellingWork: "book",
   },
   {
     key: "1",
     name: "John Brown",
-    Awards: "Nobel Prize in Literature",
-    BestSellingWork: "book",
-  }
+    awards: "Nobel Prize in Literature",
+    bestSellingWork: "book",
+  },
+];
+
+const headers = [
+  {
+    key: "name",
+  },
+  {
+    key: "awards",
+  },
+  {
+    key: "bestSellingWork",
+  },
 ];
 </script>
 
@@ -193,8 +212,6 @@ const data = [
   align-items: center;
   justify-content: center;
   border-top: 1px solid #e7e7e7;
-
-
 }
 
 .main-mid {
@@ -226,6 +243,4 @@ const data = [
   flex-direction: row;
   flex-wrap: wrap;
 }
-
-.items-cart {}
 </style>
