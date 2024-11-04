@@ -21,6 +21,9 @@ import BasicTable from "@/components/mainBodey/BasicTable.vue";
 import Wallet from "./sections/Wallet.vue";
 import { computed } from "vue";
 
+
+
+
 const items = [
   {
     id: 1,

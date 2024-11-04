@@ -9,12 +9,13 @@ import App from './App.vue'
 import router from './router'
 import 'ant-design-vue/dist/reset.css';
 import * as AntIcons from '@ant-design/icons-vue'
-
+import { VueQueryPlugin } from '@tanstack/vue-query'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(Antd)
+app.use(VueQueryPlugin)
 app.mount('#app')
 
