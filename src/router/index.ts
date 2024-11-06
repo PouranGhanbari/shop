@@ -3,6 +3,7 @@ import HomePage from '@/views/home/HomePage.vue'
 import DashboardPage from '@/views/dashboard/DashboardPage.vue'
 import LoginPage from '@/views/login/LoginPage.vue'
 import CartPage from '@/views/cart/CartPage.vue'
+import { isAuthenticated } from '@/utils/isToken'
 
 
 const router = createRouter({
@@ -16,7 +17,14 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: DashboardPage
+      component: DashboardPage,
+      beforeEnter: (to, from, next) => {
+        if (!isAuthenticated()) {
+          next('/login') 
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/login',
@@ -27,10 +35,8 @@ const router = createRouter({
       path: '/cart',
       name: 'Cart',
       component: CartPage
-    },
+    }
   ]
 })
 
 export default router
-
-

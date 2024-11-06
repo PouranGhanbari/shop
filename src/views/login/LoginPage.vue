@@ -19,6 +19,7 @@
           class="login-form justify-center p-2"
           @finish="onFinish"
           @finishFailed="onFinishFailed"
+          ref="formValue"
         >
           <!-- @submit.prevent="handleLogin({userName:formState.userName, password:formState.password})" -->
           <div class="item">
@@ -72,12 +73,7 @@
               type="primary"
               html-type="submit"
               class="login-form-button w-80 bg-gray-600"
-              @click="
-              userStore.login({
-                  userName: formState.userName,
-                  password: formState.password,
-                })
-              "
+              @click="login"
             >
               Log in
             </AButton>
@@ -99,33 +95,41 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed } from "vue";
+import { reactive, computed, ref } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import type { Authentication } from "@/model/authentication";
-import { login } from "@/api/authentication";
-import { useUserStore } from "@/store/user";
-// import router from "@/router";
-
+import { useUserStore, storageKeys } from "@/store/user";
+import router from "@/router";
+import type { FormInstance } from "ant-design-vue";
 const userStore = useUserStore();
 
+const formValue = ref<FormInstance>();
 const formState = reactive<Authentication>({
   userName: "",
   password: "",
   // remember: true,
 });
-const onFinish = (values: any) => {
-  console.log("Success:", values);
+
+const login = () => {
+  formValue.value?.validateFields().then(async () => {
+    try {
+      const { data } = await userStore.login(formState);
+      if (data?.accessToken) {
+        await router.replace({ name: "Home" });
+      }
+    } catch {
+      console.log("error");
+    }
+  });
 };
 
-// const handleLogin = async (auth: Authentication) => {
-//   const { data } = await axios.post("http://192.168.1.20:5233/api/user/login", auth);
-//   console.log(data.data);
-//   return data;
+// const onFinish = (values: any) => {
+//   console.log("Success:", values);
 // };
 
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
+// const onFinishFailed = (errorInfo: any) => {
+//   console.log("Failed:", errorInfo);
+// };
 const disabled = computed(() => {
   return !(formState.userName && formState.password);
 });

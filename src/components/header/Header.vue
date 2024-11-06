@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="header ">
-      <div class="icons flex justify-between  flex-row">
+    <div class="header">
+      <div class="icons flex justify-between flex-row">
         <!-- <a @click="openNotification" class="icon-account ics text-lg">
           <img src="@/assets/img/pic-account.jpg" alt="pic-account" />
         </a> -->
@@ -9,6 +9,19 @@
           <router-link to="/login">
             <a-button class="icon-login ics text-lg">
               <UserOutlined />
+            </a-button>
+          </router-link>
+        </router-view>
+        <!--------  -->
+        <a-button class="icon-login ics text-lg" @click="userStore.logout()">
+          <LogoutOutlined />
+        </a-button>
+
+        <!-- --- -->
+        <router-view>
+          <router-link to="/dashboard">
+            <a-button class="icon-login ics text-lg">
+              <AppstoreOutlined />
             </a-button>
           </router-link>
         </router-view>
@@ -45,42 +58,46 @@
 </template>
 
 <script lang="ts" setup>
-import { notification } from 'ant-design-vue'
+import { notification } from "ant-design-vue";
 import {
   BellOutlined,
+  AppstoreOutlined,
   ShoppingCartOutlined,
   UserOutlined,
-  MessageOutlined
-} from '@ant-design/icons-vue'
-import { ref } from 'vue'
+  MessageOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons-vue";
+import { ref } from "vue";
+import { useUserStore } from "@/store/user";
 
+const userStore = useUserStore()
 const openNotification = () => {
   notification.open({
-    message: 'Your notifications',
+    message: "Your notifications",
     description: `You don't have any message`,
     style: {
-      width: '600px',
-      marginLeft: `${335 - 600}px`
+      width: "600px",
+      marginLeft: `${335 - 600}px`,
     },
-    class: 'notification-custom-class'
-  })
-}
+    class: "notification-custom-class",
+  });
+};
 
-const value = ref<string>('')
+const value = ref<string>("");
 
 const onSearch = (searchValue: string) => {
-  console.log('use value', searchValue)
-  console.log('or use this.value', value.value)
-}
+  console.log("use value", searchValue);
+  console.log("or use this.value", value.value);
+};
 </script>
 
 <style>
 .header {
   width: 95%;
   margin: auto;
-display: flex;
-align-items: center;
-justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   flex-direction: row-reverse;
 }
 .icons {
