@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 import { useMutation } from '@tanstack/vue-query'
 // import type { Authentication } from '@/model/authentication'
 import type { loginModel } from '@/api/api'
-// import axios from 'axios'
 
 import { message } from 'ant-design-vue'
 import { ref } from 'vue'
@@ -21,36 +20,29 @@ export const useUserStore = defineStore('user', () => {
     localStorage.setItem(storageKeys.accessToken, token)
   }
 
-  // function getAsseccToken() {
-  //  return localStorage.getItem(storageKeys.accessToken)
-  // }
+  function getAsseccToken() {
+   return localStorage.getItem(storageKeys.accessToken)
+  }
 
   const { mutateAsync: login } = useMutation({
     mutationKey: ['login', 'auth'],
     mutationFn: async (param: loginModel) => {
-      const { data } = await axios.post('/login', param)
+      const { data } = await axios.post('user/login', param)
       return data
     },
     onSuccess: async (data) => {
       setAccessToken(data.data?.accessToken || '')
       message.success('با موفقیت وارد شدید')
-      console.log('check data in refresh', refresh())
     },
     onError: (data) => {
       message.error(data?.response.data.Message)
-      
     }
   })
-
+  // -------
   const { mutateAsync: logout } = useMutation({
     mutationKey: ['logout'],
     mutationFn: async () => {
-      const { data } = await axios.post('/logout',{}, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem(storageKeys.accessToken)}`
-        }
-      })
-      console.log('data check',data)
+      const { data } = await axios.post('user/logout')
       return data
     },
     onSuccess: async () => {
@@ -59,16 +51,17 @@ export const useUserStore = defineStore('user', () => {
       message.success('با موفقیت خارج شدید')
     },
     onError: (data) => {
-      // message.error(data.response.data.Message)
-      console.log('check out', data);
-      console.log('error logout')
+      console.log('error:', data)
     }
   })
 
+
+
+  // -----
   const { mutateAsync: refresh } = useMutation({
     mutationKey: ['refresh', 'token'],
     mutationFn: async () => {
-      const { data } = await axios.get('/refreshtoken')
+      const { data } = await axios.get('user/refreshtoken')
       // console.log('check data in refresh', data)
       setAccessToken(data.data?.accessToken || '')
     }
@@ -76,7 +69,8 @@ export const useUserStore = defineStore('user', () => {
   return {
     login,
     logout,
-    accessToken,
-    refresh
+    refresh,
+    getAsseccToken,
+    accessToken
   }
 })

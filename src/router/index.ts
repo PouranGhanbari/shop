@@ -19,7 +19,7 @@ const router = createRouter({
       name: 'Dashboard',
       component: DashboardPage,
       beforeEnter: (to, from, next) => {
-        if (!isAuthenticated()) {
+        if (!isAuthenticated()) {          
           next('/login') 
         } else {
           next()

@@ -2,9 +2,6 @@
   <div>
     <div class="header">
       <div class="icons flex justify-between flex-row">
-        <!-- <a @click="openNotification" class="icon-account ics text-lg">
-          <img src="@/assets/img/pic-account.jpg" alt="pic-account" />
-        </a> -->
         <router-view>
           <router-link to="/login">
             <a-button class="icon-login ics text-lg">
@@ -12,20 +9,23 @@
             </a-button>
           </router-link>
         </router-view>
+        <!-- ------------------------------------------------ -->
+        <a class="icon-account ics text-lg">
+          <img src="@/assets/img/pic-account.jpg" alt="pic-account" />
+        </a>
         <!--------  -->
-        <a-button class="icon-login ics text-lg" @click="userStore.logout()">
+        <a-button class="icon-login ics text-lg" @click="userStore.logout()" >
           <LogoutOutlined />
         </a-button>
-
         <!-- --- -->
         <router-view>
           <router-link to="/dashboard">
-            <a-button class="icon-login ics text-lg">
+            <a-button class="icon-login ics text-lg" >
               <AppstoreOutlined />
             </a-button>
           </router-link>
         </router-view>
-        <!-- -- -->
+        <!-- --------------------------------------------------- -->
         <a-button @click="openNotification" class="icon-notif ics text-lg"
           ><BellOutlined
         /></a-button>
@@ -69,8 +69,18 @@ import {
 } from "@ant-design/icons-vue";
 import { ref } from "vue";
 import { useUserStore } from "@/store/user";
+// import { defineProps } from "vue";
+// --
+// import { useUserStore, storageKeys } from "@/store/user";
+// const userStore = useUserStore();
 
-const userStore = useUserStore()
+// interface show {
+//   showBtn: boolean;
+// }
+
+// const { showBtn } = defineProps<show>();
+
+const userStore = useUserStore();
 const openNotification = () => {
   notification.open({
     message: "Your notifications",

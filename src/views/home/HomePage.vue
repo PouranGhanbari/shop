@@ -23,12 +23,19 @@
           <!-- ----- -->
           <div class="cart-items">
             <ItemBooks
+              v-for="(item, index) in products.data"
+              :title="item.name"
+              :key="index"
+              class="items-cart"
+            />
+
+            <!-- <ItemBooks
               v-for="(item, index) in dataBooks"
               :title="dataBooks[index].title"
               :description="dataBooks[index].description"
               :key="index"
               class="items-cart"
-            />
+            /> -->
           </div>
           <!-- ---- -->
           <div class="best-books">
@@ -49,8 +56,21 @@ import ItemBooks from "@/components/mainBodey/ItemBooks.vue";
 import BasicTable from "@/components/mainBodey/BasicTable.vue";
 import BestBooks from "@/components/mainBodey/BestBooks.vue";
 import MenuFilter from "@/components/Menu/MenuFilter.vue";
-// import test from "@/views/test.vue";
+import { useQuery } from "@tanstack/vue-query";
+import axios from "@/composables/useAxios";
 
+import { computed } from "vue";
+
+// ----------------------------
+const { data: Product, refetch: getProduct } = useQuery({
+  queryKey: ["product"],
+  queryFn: async () => {
+    const { data } = await axios.get("v1/product/getall");
+    return data;
+  },
+});
+const products = computed(() => Product.value || "");
+// ----------------------------------------
 const dataBooks = [
   { title: "book one", description: "this is a book", price: 12 },
   { title: "book two", description: "this is a book", price: 41 },
@@ -240,7 +260,7 @@ const headers = [
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-direction: row;
+  flex-direction: row-reverse;
   flex-wrap: wrap;
 }
 </style>

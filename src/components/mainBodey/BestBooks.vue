@@ -83,7 +83,7 @@ const { books } = defineProps<Props>();
 .pic-carousel {
   width: 80%;
   height: 13rem;
-  border-radius: 5px !important;
+  border-radius: 10px !important;
 }
 .carousel-m{
   width: 65rem;

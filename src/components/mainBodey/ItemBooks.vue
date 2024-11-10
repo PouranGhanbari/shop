@@ -1,5 +1,5 @@
 <template>
-  <a-card hoverable style="width:13rem">
+  <a-card hoverable style="width: 13rem">
     <template #cover>
       <img alt="example" src="@/assets/img/book.jpg" />
     </template>
@@ -12,16 +12,23 @@
       <ellipsis-outlined key="ellipsis" />
     </template>
     <!-- --- -->
-    <a-card-meta :title="title" :description="description">
-      <div>price lo</div>
-      <!-- <template #avatar>
-        <a-avatar src="https://joeschmoe.io/api/v1/random" />
-      </template> -->
+    <a-card-meta :title="title" dir="rtl">
+      <template #description>
+        <div>
+          این یک کتاب است
+          <br />
+          <span class="price">
+            <span class="bold-price">قیمت:</span>
+            {{ price }}
+            234 تومان</span
+          >
+        </div>
+      </template>
     </a-card-meta>
   </a-card>
 </template>
 <script lang="ts" setup>
-import { defineProps } from 'vue';
+import { defineProps } from "vue";
 import {
   ShoppingCartOutlined,
   EllipsisOutlined,
@@ -34,9 +41,8 @@ interface DataBook {
   price?: number;
 }
 
-const { title, description } = defineProps<DataBook>();
+const { title } = defineProps<DataBook>();
 </script>
-
 
 <style scoped>
 :deep(.ant-card-cover) {
@@ -52,5 +58,14 @@ const { title, description } = defineProps<DataBook>();
 }
 
 :deep(.ant-card-actions li) {
-margin: 5px 0px;}
+  margin: 5px 0px;
+}
+
+.price {
+  color: black;
+}
+.bold-price {
+  font-size: 16px;
+  font-weight: bold;
+}
 </style>

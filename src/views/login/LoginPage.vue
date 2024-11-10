@@ -98,9 +98,10 @@
 import { reactive, computed, ref } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import type { Authentication } from "@/model/authentication";
-import { useUserStore, storageKeys } from "@/store/user";
 import router from "@/router";
 import type { FormInstance } from "ant-design-vue";
+import { useUserStore, storageKeys } from "@/store/user";
+
 const userStore = useUserStore();
 
 const formValue = ref<FormInstance>();
