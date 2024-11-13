@@ -7,12 +7,12 @@
     <template #actions>
       <StarOutlined key="star" />
 
-      <ShoppingCartOutlined key="cart" />
+      <ShoppingCartOutlined key="cart" @click="selectProdyct.addToCart(data)" />
 
       <ellipsis-outlined key="ellipsis" />
     </template>
     <!-- --- -->
-    <a-card-meta :title="title" dir="rtl">
+    <a-card-meta :data="data" :title="data.name" dir="rtl">
       <template #description>
         <div>
           این یک کتاب است
@@ -34,14 +34,22 @@ import {
   EllipsisOutlined,
   StarOutlined,
 } from "@ant-design/icons-vue";
+import { useAddToCart } from "@/store/cart";
+
+const selectProdyct = useAddToCart();
 
 interface DataBook {
-  title: string;
-  description: string;
-  price?: number;
+  data: {};
+  // title: string;
+  // description: string;
+  // price?: number;
 }
 
-const { title } = defineProps<DataBook>();
+const { data } = defineProps<DataBook>();
+
+function checkClick() {
+  console.log("clicked", data.name);
+}
 </script>
 
 <style scoped>

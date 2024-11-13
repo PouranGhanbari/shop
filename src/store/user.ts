@@ -13,17 +13,20 @@ import router from '@/router'
 export const storageKeys = {
   accessToken: 'access-token'
 }
+export const isToken = ref()
 export const useUserStore = defineStore('user', () => {
   const accessToken = ref<string | null>(null)
+  // ------
   function setAccessToken(token: string) {
     accessToken.value = token
     localStorage.setItem(storageKeys.accessToken, token)
   }
-
+  // -----
+  isToken.value = !!getAsseccToken()
   function getAsseccToken() {
-   return localStorage.getItem(storageKeys.accessToken)
+    return localStorage.getItem(storageKeys.accessToken)
   }
-
+  // ------
   const { mutateAsync: login } = useMutation({
     mutationKey: ['login', 'auth'],
     mutationFn: async (param: loginModel) => {
@@ -32,6 +35,7 @@ export const useUserStore = defineStore('user', () => {
     },
     onSuccess: async (data) => {
       setAccessToken(data.data?.accessToken || '')
+      isToken.value = true
       message.success('با موفقیت وارد شدید')
     },
     onError: (data) => {
@@ -48,14 +52,13 @@ export const useUserStore = defineStore('user', () => {
     onSuccess: async () => {
       localStorage.removeItem(storageKeys.accessToken)
       await router.push({ name: 'Login' })
+      isToken.value = false
       message.success('با موفقیت خارج شدید')
     },
     onError: (data) => {
       console.log('error:', data)
     }
   })
-
-
 
   // -----
   const { mutateAsync: refresh } = useMutation({

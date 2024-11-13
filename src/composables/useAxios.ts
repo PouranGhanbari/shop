@@ -3,7 +3,7 @@ import { useUserStore } from '@/store/user'
 import router from '@/router'
 import { message } from 'ant-design-vue'
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.1.20:5233/api/'
+  baseURL: 'http://192.168.1.20:5234/api/'
 })
 
 axiosInstance.interceptors.request.use(
@@ -14,22 +14,29 @@ axiosInstance.interceptors.request.use(
     }
     return config
   },
-  (error) => {Promise.reject(error)}
+  (error) => {
+    Promise.reject(error)
+  }
 )
 
 axiosInstance.interceptors.response.use(
-  (responce) => responce,
+  (response) => response,
   async (error) => {
     const authStore = useUserStore()
-    if (error.status === 403 && !error.config?.sent) {
+    if (error?.response?.status === 403 && !error.config.sent) {
       error.config.sent = true
       authStore.refresh()
       error.config.headers.Authorization = `bearer ${authStore.accessToken}`
-      console.log('توکن منقضی شده')
       return axiosInstance(error.config)
-    } else if (error.status === 401) {
+    } else if (error?.response?.status === 401) {
       router.replace({ name: 'Login' })
       message.error(' توکن منقضی شده دوباره وارد شوید')
+    } else if (error) {
+      console.log('check error in use axios', error)
+      console.log('check error in use config', error.response)
+    }else{
+      console.log('check error', error);
+      
     }
   }
 )

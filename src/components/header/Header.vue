@@ -4,23 +4,30 @@
       <div class="icons flex justify-between flex-row">
         <router-view>
           <router-link to="/login">
-            <a-button class="icon-login ics text-lg">
+            <a-button class="icon-login ics text-lg" v-show="!isToken">
               <UserOutlined />
+              {{ console.log("check in token", isToken) }}
             </a-button>
           </router-link>
         </router-view>
         <!-- ------------------------------------------------ -->
-        <a class="icon-account ics text-lg">
+
+        <a class="icon-account ics text-lg" v-show="!!isToken">
           <img src="@/assets/img/pic-account.jpg" alt="pic-account" />
         </a>
         <!--------  -->
-        <a-button class="icon-login ics text-lg" @click="userStore.logout()" >
+        <a-button
+          class="icon-login ics text-lg"
+          @click="userStore.logout()"
+          v-show="!!isToken"
+        >
+          {{ console.log("check is token", isToken) }}
           <LogoutOutlined />
         </a-button>
         <!-- --- -->
         <router-view>
           <router-link to="/dashboard">
-            <a-button class="icon-login ics text-lg" >
+            <a-button class="icon-login ics text-lg" v-show="!!isToken">
               <AppstoreOutlined />
             </a-button>
           </router-link>
@@ -68,19 +75,11 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons-vue";
 import { ref } from "vue";
-import { useUserStore } from "@/store/user";
-// import { defineProps } from "vue";
-// --
-// import { useUserStore, storageKeys } from "@/store/user";
-// const userStore = useUserStore();
+import { useUserStore,  isToken } from "@/store/user";
 
-// interface show {
-//   showBtn: boolean;
-// }
-
-// const { showBtn } = defineProps<show>();
-
+// ---
 const userStore = useUserStore();
+
 const openNotification = () => {
   notification.open({
     message: "Your notifications",

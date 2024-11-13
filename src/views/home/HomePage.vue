@@ -24,7 +24,7 @@
           <div class="cart-items">
             <ItemBooks
               v-for="(item, index) in products.data"
-              :title="item.name"
+              :data="item"
               :key="index"
               class="items-cart"
             />
@@ -56,32 +56,28 @@ import ItemBooks from "@/components/mainBodey/ItemBooks.vue";
 import BasicTable from "@/components/mainBodey/BasicTable.vue";
 import BestBooks from "@/components/mainBodey/BestBooks.vue";
 import MenuFilter from "@/components/Menu/MenuFilter.vue";
-import { useQuery } from "@tanstack/vue-query";
-import axios from "@/composables/useAxios";
+// import { useQuery } from "@tanstack/vue-query";
+// import axios from "@/composables/useAxios";
 
 import { computed } from "vue";
-
+import { useProducts } from "@/store/products";
 // ----------------------------
-const { data: Product, refetch: getProduct } = useQuery({
-  queryKey: ["product"],
-  queryFn: async () => {
-    const { data } = await axios.get("v1/product/getall");
-    return data;
-  },
-});
-const products = computed(() => Product.value || "");
+const Products= useProducts()
+// ----------------------------
+
+const products = computed(() => Products.Product || "");
 // ----------------------------------------
-const dataBooks = [
-  { title: "book one", description: "this is a book", price: 12 },
-  { title: "book two", description: "this is a book", price: 41 },
-  { title: "book three", description: "this is a book", price: 87 },
-  { title: "book four", description: "this is a book", price: 52 },
-  { title: "book four", description: "this is a book", price: 52 },
-  { title: "book four", description: "this is a book", price: 52 },
-  { title: "book four", description: "this is a book", price: 52 },
-  { title: "book four", description: "this is a book", price: 52 },
-  { title: "book four", description: "this is a book", price: 52 },
-];
+// const dataBooks = [
+//   { title: "book one", description: "this is a book", price: 12 },
+//   { title: "book two", description: "this is a book", price: 41 },
+//   { title: "book three", description: "this is a book", price: 87 },
+//   { title: "book four", description: "this is a book", price: 52 },
+//   { title: "book four", description: "this is a book", price: 52 },
+//   { title: "book four", description: "this is a book", price: 52 },
+//   { title: "book four", description: "this is a book", price: 52 },
+//   { title: "book four", description: "this is a book", price: 52 },
+//   { title: "book four", description: "this is a book", price: 52 },
+// ];
 
 const giftBook = {
   title: "gift book",
