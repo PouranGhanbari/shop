@@ -4,10 +4,9 @@
       <div class="icons flex justify-between flex-row">
         <router-view>
           <router-link to="/login">
-            <a-button class="icon-login ics text-lg" v-show="!isToken">
+            <AButton class="icon-login ics text-lg" v-show="!isToken">
               <UserOutlined />
-              {{ console.log("check in token", isToken) }}
-            </a-button>
+            </AButton>
           </router-link>
         </router-view>
         <!-- ------------------------------------------------ -->
@@ -16,39 +15,38 @@
           <img src="@/assets/img/pic-account.jpg" alt="pic-account" />
         </a>
         <!--------  -->
-        <a-button
+        <AButton
           class="icon-login ics text-lg"
           @click="userStore.logout()"
           v-show="!!isToken"
         >
-          {{ console.log("check is token", isToken) }}
           <LogoutOutlined />
-        </a-button>
+        </AButton>
         <!-- --- -->
         <router-view>
           <router-link to="/dashboard">
-            <a-button class="icon-login ics text-lg" v-show="!!isToken">
+            <AButton class="icon-login ics text-lg" v-show="!!isToken">
               <AppstoreOutlined />
-            </a-button>
+            </AButton>
           </router-link>
         </router-view>
         <!-- --------------------------------------------------- -->
-        <a-button @click="openNotification" class="icon-notif ics text-lg"
+        <AButton @click="openNotification" class="icon-notif ics text-lg"
           ><BellOutlined
-        /></a-button>
+        /></AButton>
         <!-- -- -->
-        <a-button class="icon-chat ics text-lg"><MessageOutlined /></a-button>
+        <AButton class="icon-chat ics text-lg"><MessageOutlined /></AButton>
         <!-- --- -->
         <router-view>
           <router-link to="/cart">
-            <a-button class="icon-cart ics text-lg"><ShoppingCartOutlined /></a-button
+            <AButton class="icon-cart ics text-lg"><ShoppingCartOutlined v-show="!!isToken" /></AButton
           ></router-link>
         </router-view>
       </div>
       <!-- - -->
       <div class="search pt-5">
         <a-space direction="vertical">
-          <a-input-search
+          <AInput-search
             v-model:value="value"
             placeholder="Enter name's bood"
             enter-button

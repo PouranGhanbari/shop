@@ -13,9 +13,8 @@
         </div>
         <!-- --- -->
         <div class="description-product">
-          <p class="title">{{ product.name }}</p>
+          <p class="title">{{ product.title }}</p>
           <p class="description">این یک کتاب است</p>
-
           <p class="send">
             <span>ارسال رایگان</span>
             <CarOutlined />
@@ -24,23 +23,19 @@
 
         <div class="count">
           <div>
-            <a-badge :count="count">
-              <a-avatar shape="square" size="large" />
-            </a-badge>
-            <a-button-group>
-              <a-button @click="decline" v-show="!showDelete">
+            <ABadge :count="product.count">
+              <AAvatar shape="square" size="large" />
+            </ABadge>
+            <AButtonGroup>
+              <AButton @click="itemsCart.decrement(product)">
                 <MinusOutlined />
-                <!-- {{ console.log(!showDelete) }} -->
-              </a-button>
-              <!-- -- -->
-              <a-button v-show="showDelete" @click="deleteProduct(product)">
-                <DeleteOutlined />
-              </a-button>
+                <!-- <DeleteOutlined /> -->
+              </AButton>
               <!-- --------------------- -->
-              <a-button @click="increase">
+              <AButton @click="itemsCart.addToCart(product)">
                 <PlusOutlined />
-              </a-button>
-            </a-button-group>
+              </AButton>
+            </AButtonGroup>
           </div>
           <!-- --- -->
         </div>
@@ -50,7 +45,7 @@
     <div class="shopping-cart" dir="rtl">
       <p>جمع خرید:</p>
       <p>مقدار تخفیف:</p>
-      <a-button> تایید و تکمیل خرید </a-button>
+      <AButton> تایید و تکمیل خرید </AButton>
     </div>
   </div>
 </template>
@@ -64,36 +59,25 @@ import {
   DeleteOutlined,
   CarOutlined,
 } from "@ant-design/icons-vue";
-// const itemsCart = useAddToCart();
+const itemsCart = useAddToCart();
 
 const getProducts = ref();
-getProducts.value = JSON.parse(localStorage.getItem(productsKey.item)) || [];
+getProducts.value = itemsCart.addProducts;
 
-const count = ref<number>(1);
-const showDelete = ref<boolean>(false);
-const decline = () => {
-  if (count.value >= 1) {
-    count.value--;
-    // console.log(count.value);
-  } else {
-    showDelete.value = true;
-  }
-};
-const increase = () => {
-  count.value++;
-  showDelete.value = false;
-  console.log("jj", ss.value);
-};
-const ss = ref();
-function deleteProduct(product) {
-  getProducts.value = getProducts.value.filter((item) => {
-    // if (element.id === product.id) {
-    // return getProducts.value.splice(getProducts.value.indexOf(element), 1);
-    // }
-    return item.id !== product.id;
-  });
-  localStorage.setItem(productsKey.item, JSON.stringify(getProducts.value));
-}
+// ----
+
+// -------
+// function deleteProduct(product) {
+//   getProducts.value = getProducts.value.filter((item) => {
+//     // if (element.id === product.id) {
+//     // return getProducts.value.splice(getProducts.value.indexOf(element), 1);
+//     // }
+//     return item.id !== product.id;
+//   });
+//   itemsCart.saveProduct(getProducts.value);
+
+// }
+// -----
 </script>
 
 <style scoped>

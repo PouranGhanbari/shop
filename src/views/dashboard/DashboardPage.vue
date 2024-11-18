@@ -8,7 +8,6 @@
       <BuyReport />
       <Wallet />
       <BasicTable :items="items" :headers="headers" />
-      {{ console.log(check) }}
     </div>
   </div>
 </template>

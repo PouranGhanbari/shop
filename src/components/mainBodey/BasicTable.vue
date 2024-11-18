@@ -1,7 +1,7 @@
 <template>
   <div class="write">
     <!-- <h1 class="title">Top Writer:</h1> -->
-    <a-table :data-source="items" :columns="columns">
+    <ATable :data-source="items" :columns="columns">
       <template #headerCell="{ column }">
           <span>
 
@@ -18,7 +18,7 @@
         }"
       >
         <div style="padding: 8px">
-          <a-input
+          <AInput
             ref="searchInput"
             :placeholder="`Search ${column.dataIndex}`"
             :value="selectedKeys[0]"
@@ -26,7 +26,7 @@
             @change="(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])"
             @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)"
           />
-          <a-button
+          <AButton
             type="primary"
             size="small"
             style="width: 90px; margin-right: 8px"
@@ -36,10 +36,10 @@
               <SearchOutlined />
             </template>
             Search
-          </a-button>
-          <a-button size="small" style="width: 90px" @click="handleReset(clearFilters)">
+          </AButton>
+          <AButton size="small" style="width: 90px" @click="handleReset(clearFilters)">
             Reset
-          </a-button>
+          </AButton>
         </div>
       </template>
       <template #customFilterIcon="{ filtered }">
@@ -63,7 +63,7 @@
           </template>
         </span>
       </template>
-    </a-table>
+    </ATable>
   </div>
 </template>
 <script lang="ts" setup>

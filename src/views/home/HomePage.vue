@@ -6,6 +6,10 @@
       <div class="home">
         <div class="menu-right">
           <MenuFilter />
+          <!-- --- -->
+          <ProductForm></ProductForm>
+          <!-- --- -->
+          <AButton @click="Products.deleteProduct({ id: 20 })">delete product</AButton>
         </div>
         <!-- --- -->
         <div class="main-mid">
@@ -16,8 +20,8 @@
                 A book is a gift you can <br />
                 open again and again
               </h1>
-              <a-button class="claim-btn p-8">Claim Discount</a-button>
-              <a-button class="open-btn p-8">Open Flash Sale</a-button>
+              <AButton class="claim-btn p-8">Claim Discount</AButton>
+              <AButton class="open-btn p-8">Open Flash Sale</AButton>
             </div>
           </div>
           <!-- ----- -->
@@ -56,13 +60,12 @@ import ItemBooks from "@/components/mainBodey/ItemBooks.vue";
 import BasicTable from "@/components/mainBodey/BasicTable.vue";
 import BestBooks from "@/components/mainBodey/BestBooks.vue";
 import MenuFilter from "@/components/Menu/MenuFilter.vue";
-// import { useQuery } from "@tanstack/vue-query";
-// import axios from "@/composables/useAxios";
-
 import { computed } from "vue";
 import { useProducts } from "@/store/products";
+import ProductForm from "@/components/Modals/ProductForm.vue";
+
 // ----------------------------
-const Products= useProducts()
+const Products = useProducts();
 // ----------------------------
 
 const products = computed(() => Products.Product || "");
@@ -225,6 +228,7 @@ const headers = [
 
 .menu-right {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border-top: 1px solid #e7e7e7;

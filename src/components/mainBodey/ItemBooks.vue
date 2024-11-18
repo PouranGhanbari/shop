@@ -47,9 +47,6 @@ interface DataBook {
 
 const { data } = defineProps<DataBook>();
 
-function checkClick() {
-  console.log("clicked", data.name);
-}
 </script>
 
 <style scoped>

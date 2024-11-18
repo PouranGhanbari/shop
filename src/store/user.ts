@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 // import router from '@/router'
-import { useMutation } from '@tanstack/vue-query'
+import { useMutation, useQuery } from '@tanstack/vue-query'
 // import type { Authentication } from '@/model/authentication'
 import type { loginModel } from '@/api/api'
 
@@ -65,15 +65,24 @@ export const useUserStore = defineStore('user', () => {
     mutationKey: ['refresh', 'token'],
     mutationFn: async () => {
       const { data } = await axios.get('user/refreshtoken')
-      // console.log('check data in refresh', data)
       setAccessToken(data.data?.accessToken || '')
     }
   })
+
+  // const { data: refresh, refetch: getRefresh } = useQuery({
+  //   queryKey:['refresh', 'token'],
+  //   queryFn: async ()=>{
+  //     const {data}= await axios.get('user/refreshtoken')
+  //     setAccessToken(data.data?.accessToken || '')
+  //   }
+  // })
+
   return {
     login,
     logout,
     refresh,
     getAsseccToken,
-    accessToken
+    accessToken,
+    // getRefresh
   }
 })

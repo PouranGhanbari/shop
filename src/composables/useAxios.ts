@@ -16,6 +16,8 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     Promise.reject(error)
+    console.log('error in Axios');
+    
   }
 )
 
@@ -26,15 +28,15 @@ axiosInstance.interceptors.response.use(
     if (error?.response?.status === 403 && !error.config.sent) {
       error.config.sent = true
       authStore.refresh()
+      // authStore.getRefresh()
       error.config.headers.Authorization = `bearer ${authStore.accessToken}`
       return axiosInstance(error.config)
     } else if (error?.response?.status === 401) {
       router.replace({ name: 'Login' })
       message.error(' توکن منقضی شده دوباره وارد شوید')
-    } else if (error) {
-      console.log('check error in use axios', error)
-      console.log('check error in use config', error.response)
-    }else{
+      console.log(error);
+      
+    } else{
       console.log('check error', error);
       
     }

@@ -13,7 +13,7 @@
 
           </template>
           <template #avatar>
-            <a-avatar :src="`src/assets/img/${item.url}`" />
+            <AAvatar :src="`src/assets/img/${item.url}`" />
           </template>
         </a-list-item-meta>
       </a-list-item>
