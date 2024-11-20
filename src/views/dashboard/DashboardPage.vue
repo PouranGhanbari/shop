@@ -8,6 +8,9 @@
       <BuyReport />
       <Wallet />
       <BasicTable :items="items" :headers="headers" />
+      <!-- ---- -->
+      <ListProductsChange style="width:100%" /> 
+      <!-- <ListProductsChange style="width:100%" > </ListProductsChange> -->
     </div>
   </div>
 </template>
@@ -18,10 +21,7 @@ import MenuDashboard from "./sections/MenuDashboard.vue";
 import BuyReport from "./sections/BuyReport.vue";
 import BasicTable from "@/components/mainBodey/BasicTable.vue";
 import Wallet from "./sections/Wallet.vue";
-import { computed } from "vue";
-
-
-
+import ListProductsChange from "@/components/mainBodey/ListProductsChange.vue";
 
 const items = [
   {
@@ -62,11 +62,10 @@ const items = [
   },
 ];
 
-
-(function calculateTotals (){
+(function calculateTotals() {
   items.forEach((item) => {
     item.total = item.price * item.count;
-  })
+  });
 })();
 
 const headers = [

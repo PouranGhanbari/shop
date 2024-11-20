@@ -10,6 +10,12 @@ export interface addProductModel {
   productCategory: string
 }
 
+export interface editProductModel {
+  id: number | null
+  name: string
+  productCategory: string
+}
+
 export interface deleteProduct {
   id: number
 }

@@ -1,7 +1,6 @@
 <template>
   <div>
-    <AButton type="primary" @click="showModal" title="add">Add Product</AButton>
-
+    <AButton @click="showModal" :data="data">Edit</AButton>
     <AModal
       v-model:open="open"
       title="Title"
@@ -12,6 +11,14 @@
     >
       <AForm :model="formData" ref="formRef" layout="vertical">
         <!-- ----- -->
+        <!-- <AFormItem
+          label="Product Id"
+          name="id"
+          :rules="[{ required: true, message: 'select correct id' }]"
+        >
+          <AInput v-model:value="formData.id"></AInput>
+        </AFormItem> -->
+        <!-- -- -->
         <AFormItem
           label="Product name"
           name="title"
@@ -32,7 +39,6 @@
 
           <template #overlay>
             <AMenu>
-              <!-- @click="selectedItem('Albume')" -->
               <AMenuItem key="1" @click="selectedItem('')"> "" </AMenuItem>
               <AMenuItem key="2" @click="selectedItem('Albume')"> Albume </AMenuItem>
               <AMenuItem key="3" @click="selectedItem('Chassis')">Chassis </AMenuItem>
@@ -43,26 +49,7 @@
           </template>
         </ADropdown>
         <p>drop down: {{ formData.productCategory }}</p>
-        <!-- -- -->
 
-        <!-- <AFormItem
-          label="Product peice"
-          name="price"
-          :rules="[{ required: true, message: 'Please input the product price!' }]"
-        >
-          <AInput v-model:value="formData.price" placeholder="Enter product price"></AInput>
-        </AFormItem> -->
-        <!-- -- -->
-        <!-- <AFormItem
-          label="Product description"
-          name="description"
-          :rules="[{ required: true, message: 'Please input the product description!' }]"
-        >
-          <AInput
-            v-model:value="formData.description"
-            placeholder="Enter product description"
-          ></AInput>
-        </AFormItem> -->
         <!-- ------ -->
       </AForm>
     </AModal>
@@ -70,21 +57,31 @@
 </template>
 <script lang="ts" setup>
 import { DownOutlined } from "@ant-design/icons-vue";
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 import { useProducts } from "@/store/products";
+
 const Products = useProducts();
 
 interface FormData {
-  title: string;
-  productCategory: string;
-  price?: number;
-  description?: string;
-  url?: string;
+  data: {
+    id: number;
+    title: string;
+    productCategory: string;
+    price?: number;
+    description?: string;
+    url?: string;
+  };
+  //
 }
+const selectedItem = (item: string) => {
+  formData.value.productCategory = item;
+};
+const { data } = defineProps<FormData>();
 
 const formData = ref<FormData>({
-  title: "",
-  productCategory: "",
+  id: data.id,
+  title: data.name,
+  productCategory: data.productCategory,
 });
 
 const formRef = ref();
@@ -96,31 +93,22 @@ const showModal = () => {
   open.value = true;
 };
 
-const selectedItem = (item: string) => {
-  formData.value.productCategory = item;
-};
-
 const handleOk = async () => {
   try {
     await formRef.value.validate();
     confirmLoading.value = true;
-    // console.log("pc", formData.value);
-    await Products.addProduct({
+    await Products.editProduct({
+      id: formData.value.id,
       name: formData.value.title,
       productCategory: formData.value.productCategory,
     });
-    // await Products.getProduct();
 
     setTimeout(() => {
       confirmLoading.value = false;
       open.value = false;
-
-      //   ---
-      formData.value.title = "";
-      formData.value.productCategory = "";
     }, 1000);
   } catch (error) {
-    console.log("this is error", error);
+    console.log("error edit product", error);
   }
 };
 </script>

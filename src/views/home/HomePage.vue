@@ -9,7 +9,7 @@
           <!-- --- -->
           <ProductForm></ProductForm>
           <!-- --- -->
-          <AButton @click="Products.deleteProduct({ id: 20 })">delete product</AButton>
+          <AButton @click="Products.deleteProduct({ id: 22 })">delete product</AButton>
         </div>
         <!-- --- -->
         <div class="main-mid">

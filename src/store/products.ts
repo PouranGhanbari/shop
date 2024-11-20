@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import axios from '@/composables/useAxios'
-import type { addProductModel, deleteProduct } from '@/api/api'
+import type { addProductModel, deleteProduct, editProductModel } from '@/api/api'
+import { message } from 'ant-design-vue'
 
 export const useProducts = defineStore('products', () => {
   // --
@@ -10,7 +11,6 @@ export const useProducts = defineStore('products', () => {
     queryFn: async () => {
       const { data } = await axios.get('v1/product/getall')
       console.log('data product', data)
-
       return data
     }
   })
@@ -21,28 +21,47 @@ export const useProducts = defineStore('products', () => {
       const { data } = await axios.post('v1/product/add', param)
       return data
     },
-    onSuccess: (data) => {
-      console.log('true', data)
+    onSuccess: async () => {
+      await getProduct()
+      message.success('محصول با موفقیت اضافه شد')
     },
-    onError: () => {
-      console.log('false')
+    onError: (data) => {
+      console.log('error add product', data)
     }
   })
   // ----
   const { mutateAsync: deleteProduct } = useMutation({
     mutationKey: ['add', 'product'],
     mutationFn: async (param: deleteProduct) => {
-      // const { data } = await axios.delete('v1/product/delete', param)
       console.log('params delete ', param)
-
       const { data } = await axios.delete(`v1/product/delete/${param.id} `)
       return data
     },
-    onSuccess: (data) => {
-      console.log('delete product is correct', data)
+    onSuccess: async () => {
+      await getProduct()
+      message.success('محصول با موفقیت حذف شد')
     },
-    onError: () => {
-      console.log('false')
+    onError: (data) => {
+      // message.error('حذف محصول با مشکل رو به رو شد')
+      console.log('error delete product', data)
+    }
+  })
+  // ----
+
+  const { mutateAsync: editProduct } = useMutation({
+    mutationKey: ['edit', 'product'],
+    mutationFn: async (param: editProductModel) => {
+      const { data } = await axios.put('v1/product/update', param)
+      return data
+    },
+    onSuccess: async (data) => {
+      await getProduct()
+      console.log('data edit', data);
+      
+      message.success('محصول با موفقیت ویرایش شد')
+    },
+    onError: (data) => {
+      console.log('error update product', data)
     }
   })
 
@@ -50,6 +69,7 @@ export const useProducts = defineStore('products', () => {
     Product,
     getProduct,
     addProduct,
-    deleteProduct
+    deleteProduct,
+    editProduct
   }
 })
